@@ -26,7 +26,7 @@
               :key="item"
               class="genres"
             >
-              #{{ getGenres.find(x => x.id === item).name }}
+              # {{ getGenres.find(x => x.id === item).name }}
             </div>
           </v-card-text>
         </v-card>
