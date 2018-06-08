@@ -14,6 +14,8 @@
 import Vue from 'vue';
 
 export default Vue.extend({
-  components: {},
+  created() {
+    this.$store.dispatch('fetchData');
+  },
 });
 </script>

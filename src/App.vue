@@ -1,13 +1,23 @@
 <template>
   <v-app>
+    <Toolbar />
     <v-content>
-      <v-containter>
+      <v-container>
         <router-view/>
-      </v-containter>
+      </v-container>
     </v-content>
   </v-app>
 </template>
 
-<style lang="stylus">
+<script lang="ts">
+import Vue from 'vue';
+import Toolbar from '@/components/Toolbar.vue';
 
+export default Vue.extend({
+  components: { Toolbar },
+});
+</script>
+
+
+<style lang="stylus">
 </style>
