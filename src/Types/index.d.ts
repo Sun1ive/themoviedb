@@ -15,9 +15,15 @@ export interface IMovie {
   vote_count: number;
 }
 
+export interface IGenre {
+  id: number;
+  name: string;
+}
+
 export interface IApiState {
   page: number;
   movies: IMovie[];
+  genres: IGenre[];
 }
 
 export interface IApiResponseObject {

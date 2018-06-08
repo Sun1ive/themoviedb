@@ -20,6 +20,15 @@
           <v-card-title>
             <b>{{ movie.title }}</b>
           </v-card-title>
+          <v-card-text>
+            <div
+              v-for="item in movie.genre_ids"
+              :key="item"
+              class="genres"
+            >
+              #{{ getGenres.find(x => x.id === item).name }}
+            </div>
+          </v-card-text>
         </v-card>
       </v-flex>
     </v-layout>
@@ -35,6 +44,9 @@ export default Vue.extend({
     getMovies(): T.IMovie[] {
       return this.$store.getters.getMovies;
     },
+    getGenres(): T.IGenre[] {
+      return this.$store.getters.getGenres;
+    },
   },
   created() {
     this.$store.dispatch('fetchData');
@@ -44,11 +56,14 @@ export default Vue.extend({
 
 <style lang="stylus" scoped>
 .mycard
-  min-height: 440px;
+  min-height: 550px;
   transition .2s linear
   &:hover
     cursor pointer
     transform scale(1.02)
     box-shadow 0 2px 10px lightblue + 50%
+  .genres
+    font-weight bold
+    color blue + 30%
 
 </style>
