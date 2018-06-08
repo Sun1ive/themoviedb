@@ -16,7 +16,12 @@ const mutations = {
 const actions = {
   async fetchData({ state, commit }: any) {
     try {
-      const { data }: AxiosResponse<T.IApiResponseObject> = await axios.get(`${config.URL}/discover/movie?page=${state.page}&include_video=true&language=ru-RU&api_key=${config.apiKey}`);
+      // const { data }: AxiosResponse<T.IApiResponseObject> = await axios.get(`${config.URL}/discover/movie?page=${state.page}&with_genres=all&include_video=true&language=ru-RU&api_key=${config.apiKey}`);
+      /* eslint-disable-next-line */
+      const { data }: AxiosResponse<T.IApiResponseObject> = await axios.get(
+        `https://api.themoviedb.org/3/movie/popular?api_key=${config.apiKey}&language=en-US&page=${
+          state.page
+        }`);
       commit('setMovies', data.results);
     } catch (e) {
       throw new Error(`Error has occured ${e.response.data.status_message}`);
