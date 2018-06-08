@@ -12,6 +12,7 @@
     "object-literal-sort-keys": false,
     "no-consecutive-blank-lines": false,
     "arrow-parens": false,
-    "no-shadowed-variable": false
+    "no-shadowed-variable": false,
+    "max-line-length": [true, 200]
   }
 }

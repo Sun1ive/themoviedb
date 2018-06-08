@@ -1,19 +1,23 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import config from '@/config';
+import * as T from '@/Types/index.d.ts';
 
 const state = {
   page: 1,
+  movies: [],
+} as T.IApiState;
+
+const mutations = {
+  setMovies(state: T.IApiState, movies: T.IMovie[]) {
+    state.movies = movies;
+  },
 };
-const mutations = {};
+
 const actions = {
-  async fetchData({ commit }: any) {
+  async fetchData({ state, commit }: any) {
     try {
-      const { data } = await axios.get(`${
-        config.URL
-      }/discover/movie?page=1&include_video=false&include_adult=false&sort_by=popularity.desc&language=en-US&api_key=${
-        config.apiKey
-      }`);
-      console.log(data);
+      const { data }: AxiosResponse<T.IApiResponseObject> = await axios.get(`${config.URL}/discover/movie?page=${state.page}&language=ru-RU&api_key=${config.apiKey}`);
+      commit('setMovies', data.results);
     } catch (e) {
       throw new Error(`Error has occured ${e.response.data.status_message}`);
     }

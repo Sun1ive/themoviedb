@@ -1,4 +1,4 @@
-interface IMovie {
+export interface IMovie {
   adult: boolean;
   backdrop_path: string;
   genre_ids: number[];
@@ -14,8 +14,15 @@ interface IMovie {
   vote_average: number;
   vote_count: number;
 }
-/* eslint-disable-next-line */
+
 export interface IApiState {
   page: number;
   movies: IMovie[];
+}
+
+export interface IApiResponseObject {
+  page: number;
+  results: IMovie[];
+  total_pages: number;
+  total_results: number;
 }
