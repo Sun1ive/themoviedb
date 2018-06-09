@@ -3,7 +3,9 @@
     <Toolbar />
     <v-content>
       <v-container>
-        <router-view/>
+        <transition name="fade" mode="out-in">
+          <router-view/>
+        </transition>
       </v-container>
     </v-content>
   </v-app>
@@ -20,4 +22,8 @@ export default Vue.extend({
 
 
 <style lang="stylus">
+.fade-enter, .fade-leave-to
+  opacity 0
+.fade-enter-active, .fade-leave-active
+  transition .5s
 </style>
