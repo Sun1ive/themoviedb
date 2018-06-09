@@ -66,6 +66,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { IMovie, IGenre } from '@/Types/index.d.ts';
+import LocalStorage from '@/utils';
 
 export default Vue.extend({
   data: () => ({
@@ -79,6 +80,9 @@ export default Vue.extend({
     getGenres(): IGenre[] {
       return this.$store.getters.getGenres;
     },
+    getFavorites(): number[] {
+      return this.$store.getters.getFavorites;
+    },
   },
   async created() {
     const { id } = this.$route.params;
@@ -88,6 +92,16 @@ export default Vue.extend({
     if (typeof this.movie === 'undefined') {
       this.$router.push('/');
     }
+  },
+  methods: {
+    handleFavorites(id: number) {
+      if (this.getFavorites.indexOf(id) !== -1) {
+        this.$store.commit('removeFromFavorite', id);
+      } else {
+        this.$store.commit('addToFavorite', id);
+      }
+      LocalStorage.set('favoriteMovies', this.getFavorites);
+    },
   },
 });
 </script>

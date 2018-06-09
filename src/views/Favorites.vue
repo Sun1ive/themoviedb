@@ -57,6 +57,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import * as T from '@/Types/index.d.ts';
+import LocalStorage from '@/utils';
 
 export default Vue.extend({
   computed: {
@@ -68,6 +69,16 @@ export default Vue.extend({
     },
     getGenres(): T.IGenre[] {
       return this.$store.getters.getGenres;
+    },
+  },
+  methods: {
+    handleFavorites(id: number) {
+      if (this.getFavorites.indexOf(id) !== -1) {
+        this.$store.commit('removeFromFavorite', id);
+      } else {
+        this.$store.commit('addToFavorite', id);
+      }
+      LocalStorage.set('favoriteMovies', this.getFavorites);
     },
   },
 });
