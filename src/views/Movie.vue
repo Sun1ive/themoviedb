@@ -1,8 +1,11 @@
 <template>
   <v-container>
-    <v-layout>
-      <v-flex xs10 md8 sm6>
+    <v-layout v-if="movie" justify-space-between>
+      <v-flex xs10 sm8 md7 class="mr-2">
         <v-card>
+          <v-card-title>
+            <h2>{{ movie.title }}</h2>
+          </v-card-title>
           <v-card-media
             :src="`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`"
             height="400"
@@ -31,6 +34,25 @@
           </v-card-text>
         </v-card>
       </v-flex>
+      <v-flex lg3>
+        <v-layout>
+          <v-flex>
+            <h3>Recommendations</h3>
+          </v-flex>
+        </v-layout>
+        <v-layout
+          v-for="movie in recommendations"
+          :key="movie.id"
+          class="my-2"
+        >
+          <v-flex>
+            <v-card>
+              <v-card-media :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" height="300"/>
+              <v-card-title>{{ movie.title }}</v-card-title>
+            </v-card>
+          </v-flex>
+        </v-layout>
+      </v-flex>
     </v-layout>
   </v-container>
 </template>
@@ -41,7 +63,8 @@ import { IMovie, IGenre } from '@/Types/index.d.ts';
 
 export default Vue.extend({
   data: () => ({
-    movie: {} as IMovie,
+    movie: null as IMovie | null,
+    recommendations: null as IMovie[] | null,
   }),
   computed: {
     getMovies(): IMovie[] {
@@ -51,10 +74,14 @@ export default Vue.extend({
       return this.$store.getters.getGenres;
     },
   },
-  created() {
+  async created() {
     const { id } = this.$route.params;
+    this.recommendations = await this.$store.dispatch('fetchRecommendations', id);
     // @ts-ignore
     this.movie = this.getMovies.find((m: IMovie) => m.id === parseInt(id, 0));
+    if (typeof this.movie === 'undefined') {
+      this.$router.push('/');
+    }
   },
 });
 </script>
