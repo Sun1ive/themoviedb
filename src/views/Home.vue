@@ -43,8 +43,8 @@
           <v-card-actions style="margin-top: auto">
             <v-btn flat fab @click="addToFavorites(movie.id)">
               <v-icon
+                :color="isFavorite(movie.id)"
                 large
-                color="orange"
               >star</v-icon>
             </v-btn>
           </v-card-actions>
@@ -77,16 +77,28 @@ export default Vue.extend({
   },
   created() {
     this.$store.dispatch('fetchData');
+    const favorites = LocalStorage.get('favoriteMovies');
+    this.$store.commit('setFavorites', favorites);
   },
   methods: {
     addToFavorites(id: number) {
       const favorites = LocalStorage.get('favoriteMovies');
       if (!favorites) {
-        LocalStorage.set('favoriteMovies', id);
+        const favArr: number[] = [];
+        favArr.push(id);
+        LocalStorage.set('favoriteMovies', favArr);
       } else {
         favorites.push(id);
         LocalStorage.set('favoriteMovies', favorites);
       }
+      this.$store.commit('addToFavorite', id);
+    },
+    isFavorite(id: number): string {
+      const favorites = LocalStorage.get('favoriteMovies');
+      if (favorites) {
+        return favorites.includes(id) ? 'orange' : 'grey';
+      }
+      return 'grey';
     },
   },
 });

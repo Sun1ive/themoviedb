@@ -22,6 +22,10 @@ export default Vue.extend({
 
 
 <style lang="stylus">
+#app
+  background-image url('http://www.designbolts.com/wp-content/uploads/2013/02/crafted-paper-pattern-Grey-Seamless-Pattern-For-Website-Background.jpg')
+  background-repeat repeat
+
 .fade-enter, .fade-leave-to
   opacity 0
 .fade-enter-active, .fade-leave-active
