@@ -32,6 +32,9 @@
             <div>
             <v-icon class="mr-2">date_range</v-icon><b>Дата выхода:</b> {{ movie.release_date }}</div>
           </v-card-text>
+          <v-card-actions>
+            <v-icon large color="orangered">star</v-icon>
+          </v-card-actions>
         </v-card>
       </v-flex>
       <v-flex lg3>
