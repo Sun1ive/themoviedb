@@ -4,6 +4,7 @@
     <v-spacer />
     <v-toolbar-items class="hidden-sm-and-down">
       <v-btn dark flat to="/">Home</v-btn>
+      <v-btn dark flat to="/favorites">Favorites</v-btn>
     </v-toolbar-items>
     <v-spacer />
   </v-toolbar>

@@ -13,6 +13,11 @@ export default new Router({
       component: () => import('@/views/Home.vue'),
     },
     {
+      path: '/favorites',
+      name: 'favorites',
+      component: () => import('@/views/Favorites.vue'),
+    },
+    {
       path: '/:id',
       name: 'movie-id',
       component: () => import('@/views/Movie.vue'),

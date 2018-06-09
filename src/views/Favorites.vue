@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-layout justify-center align-center>
+    <!-- <v-layout justify-center align-center>
       <v-flex xs10>
         <v-text-field
           v-model.lazy.trim="query"
@@ -9,15 +9,15 @@
           prepend-icon="search"
         />
       </v-flex>
-    </v-layout>
+    </v-layout> -->
     <v-layout
-      v-if="getMovies.length > 0"
+      v-if="favoritesList.length > 0"
       justify-center
       align-center
       wrap
     >
       <v-flex
-        v-for="movie in getMovies"
+        v-for="movie in favoritesList"
         :key="movie.id"
         class="mx-2 my-2"
         xs10 sm4 md3 lg2
@@ -57,47 +57,18 @@
 <script lang="ts">
 import Vue from 'vue';
 import * as T from '@/Types/index.d.ts';
-import LocalStorage from '@/utils';
 
 export default Vue.extend({
-  data: () => ({
-    query: '' as string,
-  }),
   computed: {
-    getMovies(): T.IMovie[] {
-      if (this.query.length > 0) {
-        return this.$store.getters.getMovies.filter((m: T.IMovie) =>
-          m.title.toLowerCase().includes(this.query.toLowerCase()));
-      }
-      return this.$store.getters.getMovies;
-    },
-    getGenres(): T.IGenre[] {
-      return this.$store.getters.getGenres;
+    favoritesList(): T.IMovie[] {
+      return this.$store.getters.getMovies.filter((m: T.IMovie) => this.getFavorites.indexOf(m.id) > -1);
     },
     getFavorites(): number[] {
       return this.$store.getters.getFavorites;
     },
-  },
-  created() {
-    this.$store.dispatch('fetchData');
-    const favorites = LocalStorage.get('favoriteMovies');
-    if (favorites) {
-      this.$store.commit('setFavorites', favorites);
-    }
-  },
-  methods: {
-    handleFavorites(id: number) {
-      if (this.getFavorites.indexOf(id) !== -1) {
-        this.$store.commit('removeFromFavorite', id);
-      } else {
-        this.$store.commit('addToFavorite', id);
-      }
-      LocalStorage.set('favoriteMovies', this.getFavorites);
+    getGenres(): T.IGenre[] {
+      return this.$store.getters.getGenres;
     },
   },
 });
 </script>
-
-<style lang="stylus" scoped>
-
-</style>

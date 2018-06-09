@@ -1,5 +1,4 @@
 import * as T from '@/Types/index.d.ts';
-import Vue from 'vue';
 
 const state = {
   favorites: [],
@@ -9,9 +8,13 @@ const mutations = {
   setFavorites(state: T.IAppState, favorites: number[]) {
     state.favorites = favorites;
   },
+  removeFromFavorite(state: T.IAppState, id: number) {
+    const index = state.favorites.indexOf(id);
+    state.favorites.splice(index, 1);
+  },
   addToFavorite(state: T.IAppState, favorite: number) {
     if (state.favorites.indexOf(favorite) === -1) {
-      Vue.set(state.favorites, state.favorites[state.favorites.length - 1], favorite);
+      state.favorites.push(favorite);
     }
   },
 };
