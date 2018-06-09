@@ -48,7 +48,10 @@
           <v-flex>
             <v-card>
               <v-card-media :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" height="300"/>
-              <v-card-title>{{ movie.title }}</v-card-title>
+              <v-card-title>
+              <v-icon class="mr-2">title</v-icon>Title: <strong>{{ movie.title }}</strong></v-card-title>
+              <v-card-text>
+              <v-icon class="mr-2">star</v-icon>Rating: {{ movie.vote_average }}</v-card-text>
             </v-card>
           </v-flex>
         </v-layout>
