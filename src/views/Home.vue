@@ -26,8 +26,10 @@
         <v-card class="mycard">
           <v-card-media
             :src="`http://image.tmdb.org/t/p/w200/${movie.poster_path}`"
+            class="mycard__media"
             height="350"
           />
+          <div class="overflow"/>
           <v-card-title>
             <b>{{ movie.title }}</b>
           </v-card-title>
@@ -76,9 +78,23 @@ export default Vue.extend({
 .mycard
   min-height: 600px;
   transition .2s linear
+  .mycard__media
+    position relative
+  .overflow
+    position absolute
+    top 0
+    left 0
+    width 100%
+    height 100%
+    background-color #fff
+    z-index 5
+    opacity 0
+    transition .2s
+    &:hover
+      opacity 0.2
   &:hover
     cursor pointer
-    transform scale(1.02)
+    transform scale(1.01)
     box-shadow 0 2px 10px lightblue + 50%
   .genres
     font-weight bold
