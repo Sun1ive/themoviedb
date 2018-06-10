@@ -51,6 +51,15 @@
         </v-card>
       </v-flex>
     </v-layout>
+    <v-layout justify-center>
+      <v-flex xs10 sm6>
+        <v-pagination
+          :length="getPages"
+          :total-visible="15"
+          v-model="page"
+        />
+      </v-flex>
+    </v-layout>
   </v-container>
 </template>
 
@@ -62,6 +71,7 @@ import LocalStorage from '@/utils';
 export default Vue.extend({
   data: () => ({
     query: '' as string,
+    page: 1 as number,
   }),
   computed: {
     getMovies(): T.IMovie[] {
@@ -76,6 +86,9 @@ export default Vue.extend({
     },
     getFavorites(): number[] {
       return this.$store.getters.getFavorites;
+    },
+    getPages(): number {
+      return this.$store.getters.getPages;
     },
   },
   created() {

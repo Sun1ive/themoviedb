@@ -24,6 +24,7 @@ export interface IApiState {
   page: number;
   movies: IMovie[];
   genres: IGenre[];
+  totalResults: number;
 }
 
 export interface IApiResponseObject {
