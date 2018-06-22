@@ -26,9 +26,7 @@ const actions = {
     try {
       /* eslint-disable-next-line */
       const { data }: AxiosResponse<T.IApiResponseObject> = await axios.get(
-        `${config.URL}/3/movie/popular?api_key=${config.apiKey}&language=ru-RU&page=${
-          state.page
-        }`);
+        `${config.URL}/3/movie/popular?api_key=${config.apiKey}&language=ru-RU&page=${state.page}`);
       const resp: AxiosResponse<any> = await axios.get(`${config.URL}/3/genre/movie/list?&api_key=${config.apiKey}`);
       commit('setMovies', data.results);
       commit('setTotalResults', data.total_results);
