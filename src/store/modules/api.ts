@@ -19,6 +19,9 @@ const mutations = {
   setTotalResults(state: T.IApiState, results: number) {
     state.totalResults = results;
   },
+  setPage(state: T.IApiState, page: number) {
+    state.page = page;
+  },
 };
 
 const actions = {
@@ -39,7 +42,7 @@ const actions = {
       throw new Error(`Error has occured ${e.response.data.status_message}`);
     }
   },
-  async fetchRecommendations(ctx: any, movieId: string | number) {
+  async fetchRecommendations({ state }: any, movieId: string | number) {
     try {
       const { data }: AxiosResponse<any> = await axios.get(
         `${config.URL}/3/movie/${movieId.toString()}/recommendations?api_key=${config.apiKey}`,
@@ -54,6 +57,7 @@ const getters = {
   getMovies: (state: T.IApiState): T.IMovie[] => state.movies,
   getGenres: (state: T.IApiState): T.IGenre[] => state.genres,
   getPages: (state: T.IApiState): number => Math.ceil(state.totalResults / 20),
+  currentPage: (state: T.IApiState): number => state.page,
 };
 
 export default {

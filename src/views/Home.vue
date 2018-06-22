@@ -56,7 +56,8 @@
         <v-pagination
           :length="getPages"
           :total-visible="15"
-          v-model="page"
+          :value="page"
+          @input="fetchNextPage"
         />
       </v-flex>
     </v-layout>
@@ -71,13 +72,13 @@ import LocalStorage from '@/utils';
 export default Vue.extend({
   data: () => ({
     query: '' as string,
-    page: 1 as number,
   }),
   computed: {
     getMovies(): T.IMovie[] {
       if (this.query.length > 0) {
         return this.$store.getters.getMovies.filter((m: T.IMovie) =>
-          m.title.toLowerCase().includes(this.query.toLowerCase()));
+          m.title.toLowerCase().includes(this.query.toLowerCase()),
+        );
       }
       return this.$store.getters.getMovies;
     },
@@ -90,6 +91,9 @@ export default Vue.extend({
     getPages(): number {
       return this.$store.getters.getPages;
     },
+    page(): number {
+      return this.$store.getters.currentPage;
+    },
   },
   methods: {
     handleFavorites(id: number) {
@@ -99,6 +103,10 @@ export default Vue.extend({
         this.$store.commit('addToFavorite', id);
       }
       LocalStorage.set('favoriteMovies', this.getFavorites);
+    },
+    fetchNextPage(value: number) {
+      this.$store.commit('setPage', value);
+      this.$store.dispatch('fetchData');
     },
   },
 });

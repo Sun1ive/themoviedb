@@ -1,15 +1,5 @@
 <template>
   <v-container>
-    <!-- <v-layout justify-center align-center>
-      <v-flex xs10>
-        <v-text-field
-          v-model.lazy.trim="query"
-          class="search__input"
-          label="Search"
-          prepend-icon="search"
-        />
-      </v-flex>
-    </v-layout> -->
     <v-layout
       v-if="favoritesList.length > 0"
       justify-center
