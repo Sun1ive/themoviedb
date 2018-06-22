@@ -2,6 +2,7 @@ import * as T from '@/Types/index.d.ts';
 
 const state = {
   favorites: [],
+  isLoading: false,
 } as T.IAppState;
 
 const mutations = {
@@ -17,10 +18,14 @@ const mutations = {
       state.favorites.push(favorite);
     }
   },
+  setLoading(state: T.IAppState, status: boolean) {
+    state.isLoading = status;
+  },
 };
 
 const getters = {
-  getFavorites: (state: T.IAppState) => state.favorites,
+  getFavorites: (state: T.IAppState): number[] => state.favorites,
+  isLoading: (state: T.IAppState): boolean => state.isLoading,
 };
 
 export default { state, mutations, getters };

@@ -36,4 +36,5 @@ export interface IApiResponseObject {
 
 export interface IAppState {
   favorites: number[];
+  isLoading: boolean;
 }

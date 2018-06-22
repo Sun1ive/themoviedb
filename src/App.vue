@@ -1,10 +1,17 @@
 <template>
   <v-app>
     <Toolbar />
-    <v-content>
+    <v-content fill-height>
       <v-container>
         <transition name="fade" mode="out-in">
-          <router-view/>
+          <Loader
+            v-if="loading"
+            :animation-duration="2000"
+            :size="100"
+            style="margin: 0 auto;"
+            color="#1976D2"
+          />
+          <router-view v-else/>
         </transition>
       </v-container>
     </v-content>
@@ -14,16 +21,22 @@
 <script lang="ts">
 import Vue from 'vue';
 import Toolbar from '@/components/Toolbar.vue';
+import Loader from '@/components/Loader.vue';
 
 export default Vue.extend({
-  components: { Toolbar },
+  components: { Toolbar, Loader },
+  computed: {
+    loading(): boolean {
+      return this.$store.getters.isLoading;
+    },
+  },
 });
 </script>
 
 
 <style lang="stylus">
 #app
-  background-image url('http://www.designbolts.com/wp-content/uploads/2013/02/crafted-paper-pattern-Grey-Seamless-Pattern-For-Website-Background.jpg')
+  background-image url('./assets/bg.jpg')
   background-repeat repeat
 
 .fade-enter, .fade-leave-to

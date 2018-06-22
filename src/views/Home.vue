@@ -91,13 +91,6 @@ export default Vue.extend({
       return this.$store.getters.getPages;
     },
   },
-  created() {
-    this.$store.dispatch('fetchData');
-    const favorites = LocalStorage.get('favoriteMovies');
-    if (favorites) {
-      this.$store.commit('setFavorites', favorites);
-    }
-  },
   methods: {
     handleFavorites(id: number) {
       if (this.getFavorites.indexOf(id) !== -1) {

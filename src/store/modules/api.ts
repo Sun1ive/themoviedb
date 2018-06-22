@@ -24,20 +24,26 @@ const mutations = {
 const actions = {
   async fetchData({ state, commit }: any) {
     try {
-      /* eslint-disable-next-line */
+      commit('setLoading', true);
       const { data }: AxiosResponse<T.IApiResponseObject> = await axios.get(
-        `${config.URL}/3/movie/popular?api_key=${config.apiKey}&language=ru-RU&page=${state.page}`);
-      const resp: AxiosResponse<any> = await axios.get(`${config.URL}/3/genre/movie/list?&api_key=${config.apiKey}`);
+        `${config.URL}/3/movie/popular?api_key=${config.apiKey}&language=ru-RU&page=${state.page}`,
+      );
+      const resp: AxiosResponse<any> = await axios.get(
+        `${config.URL}/3/genre/movie/list?&api_key=${config.apiKey}`,
+      );
       commit('setMovies', data.results);
       commit('setTotalResults', data.total_results);
       commit('setGenres', resp.data.genres);
+      commit('setLoading', false);
     } catch (e) {
       throw new Error(`Error has occured ${e.response.data.status_message}`);
     }
   },
   async fetchRecommendations(ctx: any, movieId: string | number) {
     try {
-      const { data }: AxiosResponse<any> = await axios.get(`${config.URL}/3/movie/${movieId}/recommendations?api_key=${config.apiKey}`);
+      const { data }: AxiosResponse<any> = await axios.get(
+        `${config.URL}/3/movie/${movieId}/recommendations?api_key=${config.apiKey}`,
+      );
       return data.results.slice(0, 4);
     } catch (e) {
       throw new Error(`Error has occured ${e.response.data.status_message}`);
