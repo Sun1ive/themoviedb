@@ -1,6 +1,6 @@
 <template>
-  <v-container>
-    <v-layout v-if="movie" justify-space-between>
+  <v-container v-if="movie">
+    <v-layout justify-space-between>
       <v-flex xs10 sm8 md7 class="mr-2">
         <v-card>
           <v-card-title>
@@ -33,7 +33,10 @@
             <v-icon class="mr-2">date_range</v-icon><b>Дата выхода:</b> {{ movie.release_date }}</div>
           </v-card-text>
           <v-card-actions>
-            <v-icon large color="orangered">star</v-icon>
+            <v-icon
+              :color="$store.getters.getFavorites.indexOf(movie.id) > -1 ? 'orange' : 'grey'"
+              large
+            >star</v-icon>
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -70,8 +73,9 @@ import LocalStorage from '@/utils';
 
 export default Vue.extend({
   data: () => ({
-    movie: null as IMovie | null,
-    recommendations: null as IMovie[] | null,
+    // @ts-ignore
+    movie: null as IMovie,
+    recommendations: [] as IMovie[],
   }),
   computed: {
     getMovies(): IMovie[] {
@@ -87,10 +91,11 @@ export default Vue.extend({
   async created() {
     const { id } = this.$route.params;
     this.recommendations = await this.$store.dispatch('fetchRecommendations', id);
-    // @ts-ignore
-    this.movie = this.getMovies.find((m: IMovie) => m.id === parseInt(id, 0));
-    if (typeof this.movie === 'undefined') {
+    const movie = this.getMovies.find((m: IMovie) => m.id === parseInt(id, 0));
+    if (typeof movie === 'undefined') {
       this.$router.push('/');
+    } else {
+      this.movie = movie;
     }
   },
   methods: {
