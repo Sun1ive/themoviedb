@@ -1,13 +1,15 @@
 <template>
   <v-container>
     <v-layout justify-center align-center>
-      <v-flex xs10>
-        <v-text-field
-          v-model.lazy.trim="query"
-          class="search__input"
-          label="Search"
-          prepend-icon="search"
-        />
+      <v-flex xs11>
+        <v-card class="search__wrapper">
+          <v-text-field
+            v-model.lazy.trim="query"
+            class="search__input"
+            label="Search"
+            prepend-icon="search"
+          />
+        </v-card>
       </v-flex>
     </v-layout>
     <v-layout
@@ -27,7 +29,7 @@
             :src="`http://image.tmdb.org/t/p/w200/${movie.poster_path}`"
             class="mycard__media"
             height="350"
-          ><div class="overflow" @click="$router.push(`/${movie.id}`)"/></v-card-media>
+          ><div class="overflow" @click="$router.push(`/movie/${movie.id}`)"/></v-card-media>
           <v-card-title>
             <b>{{ movie.title }}</b>
           </v-card-title>
@@ -113,5 +115,6 @@ export default Vue.extend({
 </script>
 
 <style lang="stylus" scoped>
-
+.search__wrapper
+  padding 0.5rem 1.5rem
 </style>

@@ -17,7 +17,7 @@
             :src="`http://image.tmdb.org/t/p/w200/${movie.poster_path}`"
             class="mycard__media"
             height="350"
-          ><div class="overflow" @click="$router.push(`/${movie.id}`)"/></v-card-media>
+          ><div class="overflow" @click="$router.push(`/movie/${movie.id}`)"/></v-card-media>
           <v-card-title>
             <b>{{ movie.title }}</b>
           </v-card-title>
@@ -39,6 +39,18 @@
             </v-btn>
           </v-card-actions>
         </v-card>
+      </v-flex>
+    </v-layout>
+    <v-layout v-else justify-center>
+      <v-flex xs10 sm6 lg4>
+        <v-card>
+          <v-card-title style="justify-content: center;">
+            <h1>No favorites selected :(</h1>
+          </v-card-title>
+        </v-card>
+        <v-card-actions style="justify-content: center;">
+          <v-btn to="/" color="primary">Back to movies</v-btn>
+        </v-card-actions>
       </v-flex>
     </v-layout>
   </v-container>
