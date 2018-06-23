@@ -34,7 +34,7 @@
           </v-card-text>
           <v-card-actions>
             <v-icon
-              :color="$store.getters.getFavorites.indexOf(movie.id) > -1 ? 'orange' : 'grey'"
+              :color="$store.getters.isFavorite(movie.id)"
               large
             >star</v-icon>
           </v-card-actions>

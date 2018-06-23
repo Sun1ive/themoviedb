@@ -2,7 +2,7 @@
   <v-app>
     <Toolbar />
     <v-content fill-height>
-      <v-container>
+      <v-container fluid>
         <transition name="fade" mode="out-in">
           <Loader
             v-if="loading"

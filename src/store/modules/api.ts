@@ -44,7 +44,7 @@ const actions = {
   },
   async fetchRecommendations({ state }: any, movieId: string | number) {
     try {
-      const { data }: AxiosResponse<any> = await axios.get(
+      const { data }: AxiosResponse<T.Results> = await axios.get(
         `${config.URL}/3/movie/${movieId.toString()}/recommendations?api_key=${config.apiKey}`,
       );
       return data.results.slice(0, 4);
@@ -58,6 +58,9 @@ const getters = {
   getGenres: (state: T.IApiState): T.IGenre[] => state.genres,
   getPages: (state: T.IApiState): number => Math.ceil(state.totalResults / 20),
   currentPage: (state: T.IApiState): number => state.page,
+  // eslint-disable-next-line
+  isFavorite: (state: T.IApiState, getters: any) => (id: string) =>
+    getters.getFavorites.indexOf(id) > -1 ? 'yellow' : 'grey',
 };
 
 export default {

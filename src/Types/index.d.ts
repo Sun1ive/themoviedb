@@ -15,6 +15,10 @@ export interface IMovie {
   vote_count: number;
 }
 
+export interface Results {
+  results: IMovie[];
+}
+
 export interface IGenre {
   id: number;
   name: string;

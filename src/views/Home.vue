@@ -1,15 +1,13 @@
 <template>
-  <v-container>
+  <v-container fluid>
     <v-layout justify-center align-center>
-      <v-flex xs11>
-        <v-card class="search__wrapper">
-          <v-text-field
-            v-model.lazy.trim="query"
-            class="search__input"
-            label="Search"
-            prepend-icon="search"
-          />
-        </v-card>
+      <v-flex xs10>
+        <v-text-field
+          v-model.lazy.trim="query"
+          class="search__input"
+          label="Search"
+          prepend-icon="search"
+        />
       </v-flex>
     </v-layout>
     <v-layout
@@ -45,7 +43,7 @@
           <v-card-actions style="margin-top: auto">
             <v-btn flat fab @click="handleFavorites(movie.id)">
               <v-icon
-                :color="$store.getters.getFavorites.indexOf(movie.id) > -1 ? 'orange' : 'grey'"
+                :color="$store.getters.isFavorite(movie.id)"
                 large
               >star</v-icon>
             </v-btn>

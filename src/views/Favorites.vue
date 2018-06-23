@@ -33,7 +33,7 @@
           <v-card-actions style="margin-top: auto">
             <v-btn flat fab @click="handleFavorites(movie.id)">
               <v-icon
-                :color="$store.getters.getFavorites.indexOf(movie.id) > -1 ? 'orange' : 'grey'"
+                :color="$store.getters.isFavorite(movie.id)"
                 large
               >star</v-icon>
             </v-btn>
