@@ -76,7 +76,7 @@
 import Vue from 'vue';
 import * as T from '@/Types/index.d.ts';
 import LocalStorage from '@/utils';
-import Snackbar from '@/mixins/snackbar';
+import Snackbar from '../mixins/snackbar';
 
 export default Vue.extend({
   mixins: [Snackbar],
