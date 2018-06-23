@@ -82,11 +82,6 @@ export default Vue.extend({
   mixins: [Snackbar],
   data: () => ({
     query: '' as string,
-    snackbarOpts: {
-      color: 'green',
-      message: 'Added to favorites',
-      value: false,
-    },
   }),
   computed: {
     getMovies(): T.IMovie[] {
