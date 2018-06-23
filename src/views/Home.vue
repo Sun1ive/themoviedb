@@ -32,7 +32,7 @@
       >
         <v-card class="mycard">
           <v-card-media
-            :src="`http://image.tmdb.org/t/p/w200/${movie.poster_path}`"
+            :src="`https://image.tmdb.org/t/p/w200/${movie.poster_path}`"
             class="mycard__media"
             height="350"
           ><div class="overflow" @click="$router.push(`/movie/${movie.id}`)"/></v-card-media>
@@ -76,7 +76,7 @@
 import Vue from 'vue';
 import * as T from '@/Types/index.d.ts';
 import LocalStorage from '@/utils';
-import Snackbar from '../mixins/Snackbar';
+import Snackbar from '@/mixins/snackbar';
 
 
 export default Vue.extend({

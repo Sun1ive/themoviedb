@@ -10,7 +10,7 @@
         name="slideDown"
         mode="out-in"
         tag="div"
-        class="layout align-center justify-center"
+        class="layout align-center justify-center wrap"
       >
         <v-flex
           v-for="movie in favoritesList"
@@ -20,7 +20,7 @@
         >
           <v-card class="mycard">
             <v-card-media
-              :src="`http://image.tmdb.org/t/p/w200/${movie.poster_path}`"
+              :src="`https://image.tmdb.org/t/p/w200/${movie.poster_path}`"
               class="mycard__media"
               height="350"
             ><div class="overflow" @click="$router.push(`/movie/${movie.id}`)"/></v-card-media>

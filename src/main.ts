@@ -5,7 +5,7 @@ import LocalStorage from '@/utils';
 import router from '@/router';
 import store from '@/store';
 import App from './App.vue';
-import './registerServiceWorker';
+// import '@/registerServiceWorker';
 import './style/main.styl';
 
 Vue.config.productionTip = false;
