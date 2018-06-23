@@ -5,5 +5,6 @@ export default Vue.extend({
     message: 'Success',
     status: false,
     color: 'green',
+    timeout: 1000,
   }),
 });

@@ -1,45 +1,52 @@
 <template>
-  <v-container>
+  <v-container fluid fill-height>
     <v-layout
       v-if="favoritesList.length > 0"
       justify-center
       align-center
       wrap
     >
-      <v-flex
-        v-for="movie in favoritesList"
-        :key="movie.id"
-        class="mx-2 my-2"
-        xs10 sm4 md3 lg2
+      <transition-group
+        name="slideDown"
+        mode="out-in"
+        tag="div"
+        class="layout align-center justify-center"
       >
-        <v-card class="mycard">
-          <v-card-media
-            :src="`http://image.tmdb.org/t/p/w200/${movie.poster_path}`"
-            class="mycard__media"
-            height="350"
-          ><div class="overflow" @click="$router.push(`/movie/${movie.id}`)"/></v-card-media>
-          <v-card-title>
-            <b>{{ movie.title }}</b>
-          </v-card-title>
-          <v-card-text>
-            <div
-              v-for="item in movie.genre_ids"
-              :key="item"
-              class="genres"
-            >
-              # {{ getGenres.find(x => x.id === item).name }}
-            </div>
-          </v-card-text>
-          <v-card-actions style="margin-top: auto">
-            <v-btn flat fab @click="handleFavorites(movie.id)">
-              <v-icon
-                :color="$store.getters.isFavorite(movie.id)"
-                large
-              >star</v-icon>
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-flex>
+        <v-flex
+          v-for="movie in favoritesList"
+          :key="movie.id"
+          class="mx-2 my-2"
+          xs10 sm4 md3 lg2
+        >
+          <v-card class="mycard">
+            <v-card-media
+              :src="`http://image.tmdb.org/t/p/w200/${movie.poster_path}`"
+              class="mycard__media"
+              height="350"
+            ><div class="overflow" @click="$router.push(`/movie/${movie.id}`)"/></v-card-media>
+            <v-card-title>
+              <b>{{ movie.title }}</b>
+            </v-card-title>
+            <v-card-text>
+              <div
+                v-for="item in movie.genre_ids"
+                :key="item"
+                class="genres"
+              >
+                # {{ getGenres.find(x => x.id === item).name }}
+              </div>
+            </v-card-text>
+            <v-card-actions style="margin-top: auto">
+              <v-btn flat fab @click="handleFavorites(movie.id)">
+                <v-icon
+                  :color="$store.getters.isFavorite(movie.id)"
+                  large
+                >star</v-icon>
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-flex>
+      </transition-group>
     </v-layout>
     <v-layout v-else justify-center>
       <v-flex xs10 sm6 lg4>
@@ -64,7 +71,9 @@ import LocalStorage from '@/utils';
 export default Vue.extend({
   computed: {
     favoritesList(): T.IMovie[] {
-      return this.$store.getters.getMovies.filter((m: T.IMovie) => this.getFavorites.indexOf(m.id) > -1);
+      return this.$store.getters.getMovies.filter(
+        (m: T.IMovie) => this.getFavorites.indexOf(m.id) > -1,
+      );
     },
     getFavorites(): number[] {
       return this.$store.getters.getFavorites;
@@ -77,11 +86,25 @@ export default Vue.extend({
     handleFavorites(id: number) {
       if (this.getFavorites.indexOf(id) !== -1) {
         this.$store.commit('removeFromFavorite', id);
-      } else {
-        this.$store.commit('addToFavorite', id);
       }
       LocalStorage.set('favoriteMovies', this.getFavorites);
     },
   },
 });
 </script>
+
+<style lang="stylus" scoped>
+.slideDown-enter-to, .slideDown-leave-active
+  animation slide 1s
+  transition 1s ease
+
+@keyframes slide {
+  from {
+    transform translateY(0)
+    opacity 1
+  } to {
+    transform translateY(100%)
+    opacity 0
+  }
+}
+</style>

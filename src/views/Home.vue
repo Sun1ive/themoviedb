@@ -2,6 +2,7 @@
   <v-container fluid>
     <v-snackbar
       :color="color"
+      :timeout="timeout"
       v-model="status"
       top
     >
