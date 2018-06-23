@@ -1,5 +1,12 @@
 <template>
   <v-container fluid>
+    <v-snackbar
+      :color="color"
+      v-model="status"
+      top
+    >
+      {{ message }}
+    </v-snackbar>
     <v-layout justify-center align-center>
       <v-flex xs10>
         <v-text-field
@@ -68,10 +75,18 @@
 import Vue from 'vue';
 import * as T from '@/Types/index.d.ts';
 import LocalStorage from '@/utils';
+import Snackbar from '../mixins/Snackbar';
+
 
 export default Vue.extend({
+  mixins: [Snackbar],
   data: () => ({
     query: '' as string,
+    snackbarOpts: {
+      color: 'green',
+      message: 'Added to favorites',
+      value: false,
+    },
   }),
   computed: {
     getMovies(): T.IMovie[] {
@@ -99,8 +114,16 @@ export default Vue.extend({
     handleFavorites(id: number) {
       if (this.getFavorites.indexOf(id) !== -1) {
         this.$store.commit('removeFromFavorite', id);
+        // @ts-ignore
+        this.message = 'Successfully removed from favorites';
+        // @ts-ignore
+        this.status = true;
       } else {
         this.$store.commit('addToFavorite', id);
+        // @ts-ignore
+        this.message = 'Successfully added to favorites';
+        // @ts-ignore
+        this.status = true;
       }
       LocalStorage.set('favoriteMovies', this.getFavorites);
     },
