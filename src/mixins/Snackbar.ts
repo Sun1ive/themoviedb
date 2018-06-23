@@ -1,10 +1,8 @@
-import Vue from 'vue';
-
-export default Vue.extend({
+export default {
   data: () => ({
     message: 'Success',
     status: false,
     color: 'green',
     timeout: 1000,
   }),
-});
+};
