@@ -35,6 +35,7 @@
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
     "ts-jest": "^22.4.6",
+    "tslint": "^5.10.0",
     "vue-template-compiler": "^2.5.16"
   },
   "browserslist": [

@@ -3,7 +3,7 @@
     <Toolbar />
     <v-content fill-height>
       <v-container fluid>
-        <transition name="fade" mode="out-in">
+        <transition name="slide" mode="out-in">
           <Loader
             v-if="loading"
             :animation-duration="2000"
@@ -42,5 +42,33 @@ export default Vue.extend({
 .fade-enter, .fade-leave-to
   opacity 0
 .fade-enter-active, .fade-leave-active
-  transition .5s
+  transition .15s
+
+.slide-enter-active
+  animation-name slideRight
+.slide-leave-active
+  animation-name slideLeft
+.slide-enter-active,
+.slide-leave-active
+  animation-duration .65s
+  animation-fill-mode forwards
+
+@keyframes slideLeft {
+  from {
+    transform translateX(0)
+    opacity 1
+  } to {
+    transform translateX(30%)
+    opacity 0
+  }
+}
+@keyframes slideRight {
+  from {
+    transform translateX(30%)
+    opacity 0
+  } to {
+    transform translateX(0%)
+    opacity 1
+  }
+}
 </style>
